@@ -1,0 +1,9 @@
+database:
+    name: box
+    type: mysql
+    username: root
+    password: 
+    hostname: localhost
+
+debug: true
+template: default

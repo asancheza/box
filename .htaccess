@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /box/
+RewriteRule ^login index.php?url=login [QSA,L]
+RewriteRule ^dashboard index.php?url=dashboard [QSA,L]
+RewriteRule ^register index.php?url=register [QSA,L]
+RewriteRule ^error index.php?url=error [QSA,L]
+
+ErrorDocument 404 /box/index.php?url=404
