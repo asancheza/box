@@ -12,43 +12,50 @@ if (!isset($_SERVER["HTTP_HOST"])) {
 /*
  * Sanitize vars
 */
-$url = filter_var($_GET['url'], FILTER_SANITIZE_STRING);
+if (!isset($_GET["url"])) 
+	$url = "login";
+else
+	$url = filter_var($_GET['url'], FILTER_SANITIZE_STRING);
 
 /*
  * Check URL to send request to the right controller
 */
 switch($url) {
 	case "login": 
-	  include_once ("controllers/login.php");
-	  $login = new LoginController();
-	  $login->render();
+	  include_once ("controllers/UserController.php");
+	  $user = new UserController();	
+	 	$user->login();
+	  $user->showLogin();
 	  break;
 
 	case "logout": 
-	  //include_once ("controllers/logout.php");
-	  //$logout = new LogoutController();
-	  //$logout->execute();
-		// Remove cookies
-		if (ini_get("session.use_cookies")) {
-			$params = session_get_cookie_params();
-			setcookie(session_name(), '', time() - 42000,
-		        $params["path"], $params["domain"],
-		        $params["secure"], $params["httponly"]
-		  );
-		}
+		include_once ("controllers/UserController.php");
+		$user = new UserController();	
+		$user->logout();
+	  break;
 
-		// Destroy session
-		session_destroy();
+	case "register": 
+	  include_once ("controllers/UserController.php");
+	  $user = new UserController();	
+		$user->register();
 	  break;
 	  
 	case "dashboard": 
-		include_once ("controllers/dashboard.php");
+		include_once ("controllers/DashboardController.php");
 	  $dashboard = new dashboardController();
 	  $dashboard->render();
 	  break;
 
+	 case "app": 
+		include_once ("controllers/AppControllerA.php");
+	  $app = new appController();
+	  //$app->render();
+	  break;
+
 	 case "404": 
-		echo "Error 404";
+		include_once ("controllers/404.php");
+		$notfound = new NotfoundController();
+		$notfound->render();
 	  break;
 }
 

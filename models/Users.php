@@ -6,6 +6,8 @@
   	private $username;
   	private $password;
   	private $company;
+    private $email;
+    private $type;
 
     /*public function __construct() {
       $this->setTable('users');
@@ -70,9 +72,53 @@
      *
      * @return string 
      */
-  	public function getCompany() {
-  		return $this->company;
+  	public function getEmail() {
+  		return $this->email;
   	}
+
+    /**
+     * Set email
+     *
+     * @param string $company
+     *
+     * @return Users model
+     */
+    public function setCompany($company) {
+      $this->email = $email;
+
+      return $this;
+    }
+
+    /**
+     * Get type of user
+     *
+     * @return string 
+     */
+    public function getType() {
+      return $this->type;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return Users model
+     */
+    public function setType($type) {
+      $this->type = $type;
+
+      return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string 
+     */
+    public function getCompany() {
+      return $this->company;
+    }
 
     /*
      * Check login 
@@ -83,7 +129,7 @@
         ->where('username', $_POST["username"])
         ->where('password', $_POST["password"]);
 
-        $result   = $this->execute();
+      $result   = $this->execute();
 
       if ($result->num_rows >= 1) {
         session_start();
@@ -92,6 +138,19 @@
       }
 
       return false;
+    }
+
+    /*
+     * Check login 
+     */
+    public function insertUser() {
+      $this->insertQuery('users')
+        ->set('username', $_POST["username"])
+        ->set('password', $_POST["password"]);
+
+      $result   = $this->execute();
+
+      return $result;
     }
   }
 ?>
