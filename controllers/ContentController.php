@@ -1,9 +1,9 @@
 <?php
 
 include_once("Models/Users.php");
-include_once("Models/App.php");
+include_once("Models/Content.php");
 
-class appController {
+class contentController {
   public $user;
   public $vars;
 
@@ -27,33 +27,26 @@ class appController {
   }
 
   public function create() {
-    include_once("Models/App.php");
-    $app = new App();
-    $result = $app->create();
-    header("Location: show");
+    $content = new Content();
+    $result = $content->create();
+    header("Location: ".$_GET["id"]);
   }
 
   public function update() {
-    include_once("Models/App.php");
-    $app = new App();
-    $result = $app->update();
-    header("Location: show"); 
+    
   }
 
   public function delete() {
-    include_once("Models/App.php");
-    $app = new App();
-    $result = $app->delete();
-    header("Location: show"); 
+    
   }
 
   public function show() {
-    include_once("views/app.php");
-    $app = new App();
-    $result = $app->listApps();
+    include_once("views/content.php");
+    $content = new Content();
+    $result = $content->listContents();
 
     $this->vars["result"] = $result;
-    AppView::show($this->vars);
+    ContentView::show($this->vars);
   }
 }
 ?>

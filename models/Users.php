@@ -3,15 +3,35 @@
   include ("database.php");
   
 	class Users extends Database {
+    private $id;
   	private $username;
   	private $password;
   	private $company;
     private $email;
-    private $type;
+    private $role;
 
     /*public function __construct() {
       $this->setTable('users');
     }*/
+
+    /**
+     * Set id
+     *
+     * @return string 
+     */
+    public function setId($id) {
+      $this->id = $id;
+      return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return string 
+     */
+    public function getId() {
+      return $this->id;
+    }
 
   	/**
      * Set username
@@ -51,7 +71,7 @@
      * @return string 
      */
   	public function getPassword() {
-  		return $this->username;
+  		return $this->password;
   	}
 
   	/**
@@ -83,7 +103,7 @@
      *
      * @return Users model
      */
-    public function setCompany($company) {
+    public function setEmail($email) {
       $this->email = $email;
 
       return $this;
@@ -94,8 +114,8 @@
      *
      * @return string 
      */
-    public function getType() {
-      return $this->type;
+    public function getRole() {
+      return $this->role;
     }
 
     /**
@@ -105,8 +125,8 @@
      *
      * @return Users model
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setRole($type) {
+      $this->type = $role;
 
       return $this;
     }
@@ -132,8 +152,11 @@
       $result   = $this->execute();
 
       if ($result->num_rows >= 1) {
-        session_start();
-        $this->setUsername($_POST["username"]);
+        @session_start();
+        $userRow = $result->fetch_assoc();
+
+        $this->setId($userRow["id"]);
+        $this->setUsername($userRow["username"]);
         return true;
       }
 

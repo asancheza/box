@@ -1,5 +1,7 @@
 <?php
 
+@session_start();
+
 class UserController {
   public $vars;
 
@@ -21,6 +23,9 @@ class UserController {
   }
 
   public function showLogin() {
+    if (isset($_SESSION["user"]))
+      header("Location: dashboard");
+    
     if (!isset($_POST["action"])) {
       include_once("views/login.php");
       LoginView::render($this->vars);

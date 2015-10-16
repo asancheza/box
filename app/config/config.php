@@ -1,6 +1,8 @@
 <?php
 
+// Move safe file
 class Config {
+  public $safepath = "app/config";
 	public $configurationData;
 	public $databaseName;
 	public $databaseUsername;
@@ -10,7 +12,7 @@ class Config {
 	public $template;
 
 	public function __construct() {
-		$configurationData = yaml_parse_file("config.yml");
+		$configurationData = yaml_parse_file($this->safepath."/config.yml");
 		$this->databaseName = $configurationData['database']['name'];
 		$this->databaseUsername = $configurationData['database']['username'];
 		$this->databasePassword = $configurationData['database']['password'];
