@@ -4,5 +4,3 @@
   $log->pushHandler(new Monolog\Handler\StreamHandler('app/logs/app.log', Monolog\Logger::WARNING));
   $log->addWarning('Foo');
 ?>
-
-

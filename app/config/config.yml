@@ -7,3 +7,4 @@ database:
 
 debug: true
 template: default
+path: /dashboard

@@ -10,6 +10,7 @@ class Database {
   public $table;
   public $type;
   public $limit;
+  public $orderby;
 
   /*
    * Initializes configuration and initial variables for database
@@ -23,6 +24,8 @@ class Database {
     $this->equal = array();
     $this->insert = "";
     $this->set = array();
+    $this->limit = "";
+    $this->orderby = "";
 	}
 
   /*
@@ -31,7 +34,7 @@ class Database {
    * @return Config object
    */
   public function getConfiguration() {
-    include_once("config.php");
+    include_once("app/config/config.php");
     $this->config = new Config();
   }
 
@@ -280,8 +283,10 @@ class Database {
 			foreach ($columns as $key => $column) {
 				if ($count >= 1) 
 					$and = " AND ";
-
-				$where .= $and.$key . "=" ."'".$this->getConnection()->real_escape_string($column)."'";  
+          if (strcmp((int)$column, $column) == 0) 
+				    $where .= $and.$key . "=" . $column;  
+          else
+            $where .= $and.$key . "=" ."'".$this->getConnection()->real_escape_string($column)."'";  
 
         $count++;
 			}
@@ -353,16 +358,20 @@ class Database {
           $this->query = strtoupper($this->getType());
           $this->query .= " ".$this->getFieldsFromArray($this->field);
           $this->query .= " FROM ".$this->getTable();
+
           if ('' != $this->whereFromArray($this->getWhere())) $this->query .= " WHERE ".$this->whereFromArray($this->getWhere());
-          if (null !== $this->limit) $this->query .= " LIMIT ".$this->limit; 
-          //echo $this->query."\n";
+     
+          //if ('' !== $this->limit) $this->query .= " LIMIT ".$this->limit; 
+          //if ('' !== $this->orderby) $this->query .= " ORDERBY ".$this->orderby; 
           break;
 
         case "delete":
           $this->query = strtoupper($this->getType());
           $this->query .= " FROM ".$this->getTable();
+          
           if ('' != $this->whereFromArray($this->getWhere())) $this->query .= " WHERE ".$this->whereFromArray($this->getWhere());
           //echo $this->query."\n";
+          //var_dump($this->query);
           break;
 
         case "insert":
@@ -378,13 +387,13 @@ class Database {
           $this->query .= " ".$this->getTable();
           $this->query .= $this->setFieldsFromArray($this->set);
           if ('' != $this->whereFromArray($this->getWhere())) $this->query .= " WHERE ".$this->whereFromArray($this->getWhere());
-          //echo $this->query."\n";
+          echo $this->query."\n";
           break;
       }
 
       $result = $this->getConnection()->query($this->getQuery());
       if (!$result) {
-        echo "<p>There was an error in query: $this->getQuery()</p>";
+        //echo "<p>There was an error in query: $this->getQuery()</p>";
         echo $this->getConnection()->error;
       }
 

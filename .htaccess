@@ -1,8 +1,38 @@
+Header add Access-Control-Allow-Origin "*"
+
 RewriteEngine On
-RewriteBase /box/
+
+# Change to other url
+RewriteBase /dashboard/
+
+# Rules
 RewriteRule ^login index.php?url=login [QSA,L]
 RewriteRule ^dashboard index.php?url=dashboard [QSA,L]
+RewriteRule ^user/update$ index.php?url=user&action=update [QSA,L]
+RewriteRule ^user/delete$ index.php?url=user&action=delete [QSA,L]
+RewriteRule ^profile index.php?url=profile [QSA,L]
+RewriteRule ^library index.php?url=library&action=library [QSA,L]
+RewriteRule ^app/show$ index.php?url=app&action=show [QSA,L]
+RewriteRule ^app/create$ index.php?url=app&action=create [QSA,L]
+RewriteRule ^app/modify$ index.php?url=app&action=modify [QSA,L]
+RewriteRule ^app/delete$ index.php?url=app&action=delete [QSA,L]
+RewriteRule ^app/contents$ index.php?url=contents&action=show [QSA,L]
+RewriteRule ^app/contents/delete$ index.php?url=contents&action=delete&id=$1 [QSA,L]
+RewriteRule ^app/contents/edit$ index.php?url=contents&action=update&id=$1 [QSA,L]
+RewriteRule ^app/contents/(.*)$ index.php?url=contents&action=show&id=$1 [QSA,L]
+RewriteRule ^publish index.php?url=publish [QSA,L]
 RewriteRule ^register index.php?url=register [QSA,L]
+RewriteRule ^logout index.php?url=logout [QSA,L]
 RewriteRule ^error index.php?url=error [QSA,L]
 
-ErrorDocument 404 /box/index.php?url=404
+# 404
+ErrorDocument 403 /dashboard/index.php?url=404
+ErrorDocument 404 /dashboard/index.php?url=404
+ErrorDocument 500 /dashboard/index.php?url=500
+
+Options All -Indexes
+
+<FilesMatch "\.(htaccess|htpasswd|ini|log|yml)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>

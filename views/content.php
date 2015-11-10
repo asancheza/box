@@ -1,12 +1,18 @@
 <?php
 
-class ContentView {
-  public static function show($vars) {
+trait showView {
+	public static function render($vars, $view) {
 	  include_once("app/config/config.php");
 	  $config = new Config();
 	  $template = $config->template;
 	  $templatePath = "templates/".$template."/";
-	  $page = include_once($templatePath."/content_show.php");
-  }
+	  $installPath = $config->path;
+	  $page = include_once($templatePath."/".$view.".php");
+	  echo $page;
+	}
+}
+
+class ContentView {
+  use showView;
 }
 ?>

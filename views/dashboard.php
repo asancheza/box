@@ -6,7 +6,8 @@ class DashboardView {
 	  $config = new Config();
 	  $template = $config->template;
 	  $templatePath = "templates/".$template."/";
-	  $page = include_once($templatePath."/dashboard.php");
+	  $installPath = $config->path;
+	  $page = include_once($templatePath."/showDashboard.php");
 	  echo $page;
   }
 }

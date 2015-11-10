@@ -1,9 +1,10 @@
 <?php
 
-include_once("Models/Users.php");
-include_once("Models/App.php");
+include_once("models/Users.php");
+include_once("models/App.php");
+include_once("controllers/RouteInterface.php");
 
-class appController {
+class appController implements RouteInterface {
   public $user;
   public $vars;
 
@@ -27,21 +28,18 @@ class appController {
   }
 
   public function create() {
-    include_once("Models/App.php");
     $app = new App();
     $result = $app->create();
     header("Location: show");
   }
 
   public function update() {
-    include_once("Models/App.php");
     $app = new App();
     $result = $app->update();
     header("Location: show"); 
   }
 
   public function delete() {
-    include_once("Models/App.php");
     $app = new App();
     $result = $app->delete();
     header("Location: show"); 
@@ -50,7 +48,11 @@ class appController {
   public function show() {
     include_once("views/app.php");
     $app = new App();
-    $result = $app->listApps();
+    $result = $app->show();
+
+    $this->user = unserialize($_SESSION["user"]); 
+    $this->vars = array();
+    $this->vars["user"] = $this->user;
 
     $this->vars["result"] = $result;
     AppView::show($this->vars);

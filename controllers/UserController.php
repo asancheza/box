@@ -7,19 +7,18 @@ class UserController {
 
   public function login() {
   	if (isset($_POST["action"]) && $_POST["action"] == "login") {
-  		include_once("Models/Users.php");
+  		include_once("models/Users.php");
   		$users = new Users();
   		if (true == $users->checkUsernamePassword()) {
         $_SESSION["user"] = serialize($users);
-  			header("Location: dashboard");
+        $this->vars = array();
+        $this->vars["user"] = $users;
+        header("Location: dashboard");
       } else {
         $error = "usernamewrong";
   			header("Location: login?error=".$error);
       }
-  	} else {
-	  	$this->vars = array();
-	  	$this->vars["nombre"] = "Alex"; 	
-	   }
+  	} 
   }
 
   public function showLogin() {
@@ -28,7 +27,7 @@ class UserController {
     
     if (!isset($_POST["action"])) {
       include_once("views/login.php");
-      LoginView::render($this->vars);
+      LoginView::render($this->vars, "showLogin");
     }
   }
 
@@ -46,16 +45,38 @@ class UserController {
   }
 
   public function register() {
-    include_once("Models/Users.php");
+    include_once("models/Users.php");
     $users = new Users();
-    $result = $users->insertUser();
+    $result = $users->create();
 
     if ($result) {
       $_SESSION["user"] = serialize($users);
       header("Location: dashboard");
     } else {
-      header("Location: login?error=registro");
+      $error = "register";
+      header("Location: login?error=".$error);
     }
+  }
+
+  public function profile() {
+    include_once("models/Users.php");
+    $this->vars["user"] = unserialize($_SESSION["user"]);
+    include_once("views/profile.php");
+    ProfileView::render($this->vars, "showProfile");
+  }
+
+  public function update() {
+    include_once("models/Users.php");
+    $users = new Users();
+    $users->update();
+    //header("Location: ../profile?error=ok");
+  }
+
+  public function delete() {
+    include_once("models/Users.php");
+    $users = new Users();
+    $users->delete();
+    //header("Location: ../logout");
   }
 }
 

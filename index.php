@@ -39,6 +39,23 @@ switch($url) {
 	  $user = new UserController();	
 		$user->register();
 	  break;
+
+	case "user":
+		include_once ("controllers/UserController.php");
+	  $user = new UserController();
+	  if ($_GET["action"] == "update")	
+			$user->update();
+
+		if ($_GET["action"] == "delete")	
+			$user->delete();
+
+	  break;
+
+	case "profile": 
+	  include_once ("controllers/UserController.php");
+	  $user = new UserController();	
+		$user->profile();
+	  break;
 	  
 	case "dashboard": 
 		include_once ("controllers/DashboardController.php");
@@ -47,15 +64,39 @@ switch($url) {
 	  break;
 
 	 case "app": 
-		include_once ("controllers/AppControllerA.php");
+		include_once ("controllers/AppController.php");
 	  $app = new appController();
 	  //$app->render();
+	  break;
+
+	 case "contents": 
+		include_once ("controllers/ContentController.php");
+	  $contents = new contentController();
+	  //$app->render();
+	  break;
+
+	 case "publish": 
+		include_once ("controllers/ContentController.php");
+	  $contents = new contentController();
+	  $contents->publish();
+	  break;
+
+	 case "library": 
+		include_once ("controllers/ContentController.php");
+	  $contents = new contentController();
+	  $contents->library();
 	  break;
 
 	 case "404": 
 		include_once ("controllers/404.php");
 		$notfound = new NotfoundController();
-		$notfound->render();
+		$notfound->render404();
+	  break;
+
+	 case "500": 
+		include_once ("controllers/404.php");
+		$notfound = new NotfoundController();
+		$notfound->render500();
 	  break;
 }
 

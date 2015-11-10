@@ -6,7 +6,8 @@ class AppView {
 	  $config = new Config();
 	  $template = $config->template;
 	  $templatePath = "templates/".$template."/";
-	  $page = include_once($templatePath."/app_show.php");
+	  $installPath = $config->path;
+	  $page = include_once($templatePath."/showApp.php");
   }
 }
 ?>

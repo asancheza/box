@@ -1,6 +1,6 @@
 <?php
 
-include_once("Models/Users.php");
+include_once("models/Users.php");
 
 class dashboardController {
   public $user;
@@ -14,7 +14,7 @@ class dashboardController {
 
   public function render() {
     include_once("views/dashboard.php");
-    dashboardView::render($this->user);
+    dashboardView::render($this->vars);
   }
 }
 

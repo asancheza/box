@@ -10,6 +10,7 @@ class Config {
 	public $databaseHost;
 	public $debug;
 	public $template;
+	public $path;
 
 	public function __construct() {
 		$configurationData = yaml_parse_file($this->safepath."/config.yml");
@@ -20,6 +21,7 @@ class Config {
 		$this->databaseType = $configurationData['database']['type'];
     $this->debug = $configurationData['debug'];
     $this->template = $configurationData['template'];
+    $this->path = $configurationData['path'];
 	}
 }
 

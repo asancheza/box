@@ -1,8 +1,8 @@
 <?php
-
   include_once ("database.php");
+  include_once ("CrudInterface.php");
   
-	class App extends Database {
+	class App extends Database implements Crud {
   	private $name;
     private $contents;
 
@@ -47,7 +47,7 @@
       return $result;
     }
 
-    public function listApps() {
+    public function show() {
       $this->selectQuery('apps')
         ->field('*');
 
@@ -60,6 +60,9 @@
       }
 
       return $result;
+    }
+
+    public function update() {
     }
   }
 ?>

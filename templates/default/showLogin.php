@@ -19,7 +19,7 @@
 
       <form class="form-horizontal" action="index.php?url=login" method="POST">
         <input style="color:black" class="form-control" type="text" name="username" placeholder="Username">
-        <input style="color:black" class="form-control" type="text" name="password" placeholder="Password">
+        <input style="color:black" class="form-control" type="password" name="password" placeholder="Password">
         <input type="hidden" name="action" value="login">
         <input type="hidden" name="url" value="login">
         <button class="btn btn-primary block full-width m-b">Login</button>
@@ -29,9 +29,10 @@
       <br/>
       <form action="register" method="POST" action="index.php?url=register" >
       	<input style="color:black"  class="form-control" type="text" name="username" placeholder="Username">
-      	<input style="color:black" class="form-control" type="text" name="password" placeholder="Password">
+      	<input style="color:black" class="form-control" type="password" name="password" placeholder="Password">
       	<input style="color:black" class="form-control" type="text" name="company" placeholder="Company">
-        <input style="color:black"  class="form-control" type="phone" name="phone" placeholder="Phone">
+        <input style="color:black"  class="form-control" type="text" name="phone" placeholder="Phone">
+        <input style="color:black"  class="form-control" type="position" name="position" placeholder="Position">
         <input class="form-control" type="email" placeholder="Email">
         <button class="btn btn-primary block full-width m-b">Register</button>
       </form>
